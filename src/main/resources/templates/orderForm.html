@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>TacoCloud - złóż zamówienie</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/scrolling-nav.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">Taco Application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="py-5 bg-dark text-white">
+  <div class="container text-center">
+    <br>
+
+    <img th:src="@{/images/TacoCloud.png}"/>
+    <br>
+    <br>
+    <h1> Złóż zamówienie</h1>
+    <p> dostarcz nam potrzebne dane, aby móc trafić do Ciebie bezproblemowo</p>
+  </div>
+  </div>
+</header>
+
+<form method ="POST" th:action="@{/orders}" th:object="{order}">
+  <div th:if="${#fields.hasErrors()}">
+    <span class="validationEror">
+      Usuń wymienione problemy i spróbuj ponownie
+    </span>
+  </div>
+
+  <h3>Adres dostarczenia taco...</h3>
+  <label for="name">Imię i nazwisko: </label>
+  <input id ="name" type="text" th:field="*{name}"/>
+</br>
+  <label for="street">Ulica: </label>
+  <input id="street" type="text" th:field="*{street}"/>
+<br/>
+  <label for="city">Miejscowość: </label>
+  <input id="city" type="text" th:field="*{city}"/>
+<br/>
+  <label for="state">Województwo: </label>
+  <input id="state" type="text" th:field="*{state}"/>
+<br/>
+  <label for="zip">Kod pocztowy: </label>
+  <input id="zip" type="text" th:field="*{zip}"/>
+<br/>
+<h3>Sposób płatności...</h3>
+  <label for="creditCardNumber">Numer karty kredytowej:</label>
+  <input id="creditCardNumber" type="text" th:field="*{creditCardNumber}"/>
+<br/>
+  <label for="creditCardExpiration">Data ważności: </label>
+  <input id="creditCardExpiration" type="text" th:field="*{creditCardExpiration}"/>
+<br/>
+  <label for="creditCardCVV">Kod CVV: </label>
+  <input id="creditCardCVV" type="text" th:field="*{creditCardCVV}"/>
+<br/>
+
+<input type="submit" value="Złóż zamówienie"/>
+</form>
+
+
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom JavaScript for this theme -->
+<script src="js/scrolling-nav.js"></script>
+
+</body>
+
+</html>

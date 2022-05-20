@@ -2,6 +2,7 @@ package org.repo.example.taco.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.repo.example.taco.models.Ingredient;
+import org.repo.example.taco.models.Taco;
 import org.repo.example.taco.models.Type;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,9 @@ import java.util.stream.Collectors;
 public class DesignTacoController {
 
     @GetMapping
-    public String showDesignForm (Model model) {
+    public String showDesignForm(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLTO" , "pszenna", Type.WRAP),
+                new Ingredient("FLTO", "pszenna", Type.WRAP),
                 new Ingredient("COTO", "kukurydziana", Type.WRAP),
                 new Ingredient("GRBF", "mielona wołowina", Type.PROTEIN),
                 new Ingredient("CARN", "kawałki mięsa", Type.PROTEIN),
@@ -42,12 +43,16 @@ public class DesignTacoController {
                             .filter(ingredient -> ingredient.getType() == type)
                             .collect(Collectors.toList()));
         }
-        model.addAttribute("ingredients" , ingredients);
+        model.addAttribute("design", new Taco());
         return "design";
     }
 
-    @PostMapping
-    public String processDesign(Design design){
-     return "redirect:/orders/current";
-    }
+//    @PostMapping
+//    public String processDesign(@Valid Taco design, Errors errors){
+//        if (errors.hasErrors()) {
+//           return "design";
+//        }
+//        log.info("Przetwarzanie projektu taco: " + design);
+//        return "redirect:/orders/current";
+//    }
 }

@@ -3,18 +3,18 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>TacoCloud - złóż zamówienie</title>
+    <title>TacoOrder - dane do wysyłki</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/scrolling-nav.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
 
 </head>
 
@@ -22,97 +22,146 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-  <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">Taco Application</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-        </li>
-      </ul>
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Taco Application - design </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#design">Design</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 <header class="py-5 bg-dark text-white">
-  <div class="container text-center">
-    <br>
+    <div class="container text-center">
+        <br>
 
-    <img th:src="@{/images/TacoCloud.png}"/>
-    <br>
-    <br>
-    <h1> Złóż zamówienie</h1>
-    <p> dostarcz nam potrzebne dane, aby móc trafić do Ciebie bezproblemowo</p>
-  </div>
-  </div>
+        <img th:src="@{/images/TacoCloud.png}"/>
+        <br>
+        <br>
+        <h2> Dane do Twojego zamówienia</h2>
+    </div>
 </header>
 
-<form method ="POST" th:action="@{/orders}" th:object="{order}">
-  <div th:if="${#fields.hasErrors()}">
+
+    <form method ="POST" th:action="@{/currentOrder}" th:object="${order}">
+        <div class = "container">
+            <a href="/design" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Stwórz taco od nowa</a>
+
+    <div th:if="${#fields.hasErrors()}">
     <span class="validationEror">
       Usuń wymienione problemy i spróbuj ponownie
     </span>
-  </div>
+    </div><section id="order">
+    <h3>Adres dostarczenia taco</h3>
+            <br>
+    <label for="name">Imię i nazwisko: </label>
+    <input class="form-control" id ="name" type="text" th:field="*{name}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">Brak imienia</span>
+    <br/>
+    <label for="street">Ulica: </label>
+    <input class="form-control" id="street" type="text" th:field="*{street}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('street')}"
+                  th:errors="*{street}">Brak ulicy</span>
+    <br/>
+    <label for="city">Miejscowość: </label>
+    <input class="form-control" id="city" type="text" th:field="*{city}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('city')}"
+                  th:errors="*{city}">Brak miejscowości</span>
+    <br/>
+    <label for="state">Województwo: </label>
+    <input class="form-control" id="state" type="text" th:field="*{state}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('state')}"
+                  th:errors="*{state}">Brak województwa</span>
+    <br/>
+    <label for="zipCode">Kod pocztowy: </label>
+    <input class="form-control" id="zipCode" type="text" th:field="*{zipCode}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('zipCode')}"
+                  th:errors="*{zipCode}">Błąd kodu pocztowego</span>
+    <br/>
+    <h3>Sposób płatności</h3>
+            <br>
+    <label for="creditCardNumber">Numer karty kredytowej:</label>
+    <input class="form-control" id="creditCardNumber" type="text" th:field="*{creditCardNumber}"/>
+    <span style="color:#FF0001" class="validationError"
+          th:if="${#fields.hasErrors('creditCardNumber')}"
+          th:errors="*{creditCardNumber}">Błąd numeru karty kredytowej</span>
+    <br/>
+    <label for="creditCardExpiration">Data ważności: </label>
+    <input class="form-control" id="creditCardExpiration" type="text" th:field="*{creditCardExpiration}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('creditCardExpiration')}"
+                  th:errors="*{creditCardExpiration}">Błąd daty przedawnienia karty</span>
+    <br/>
+    <label for="creditCardCVV">Kod CVV: </label>
+    <input class="form-control" id="creditCardCVV" type="text" th:field="*{creditCardCVV}"/>
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('creditCardCVV')}"
+                  th:errors="*{creditCardCVV}">Błąd numeru CVV</span>
+    <br/>
 
-  <h3>Adres dostarczenia taco...</h3>
-  <label for="name">Imię i nazwisko: </label>
-  <input id ="name" type="text" th:field="*{name}"/>
-</br>
-  <label for="street">Ulica: </label>
-  <input id="street" type="text" th:field="*{street}"/>
-<br/>
-  <label for="city">Miejscowość: </label>
-  <input id="city" type="text" th:field="*{city}"/>
-<br/>
-  <label for="state">Województwo: </label>
-  <input id="state" type="text" th:field="*{state}"/>
-<br/>
-  <label for="zip">Kod pocztowy: </label>
-  <input id="zip" type="text" th:field="*{zip}"/>
-<br/>
-<h3>Sposób płatności...</h3>
-  <label for="creditCardNumber">Numer karty kredytowej:</label>
-  <input id="creditCardNumber" type="text" th:field="*{creditCardNumber}"/>
-<br/>
-  <label for="creditCardExpiration">Data ważności: </label>
-  <input id="creditCardExpiration" type="text" th:field="*{creditCardExpiration}"/>
-<br/>
-  <label for="creditCardCVV">Kod CVV: </label>
-  <input id="creditCardCVV" type="text" th:field="*{creditCardCVV}"/>
-<br/>
-
-<input type="submit" value="Złóż zamówienie"/>
+    <input type="submit" value="Złóż zamówienie"/>
+        </section>
+        </div>
 </form>
 
 
+        <section id="services" class="bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Services we offer</h2>
+                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-  <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-  </div>
-  <!-- /.container -->
-</footer>
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Contact us</h2>
+                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Dobrosław Dwojacki</p>
+            </div>
+            <!-- /.container -->
+        </footer>
 
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Custom JavaScript for this theme -->
-<script src="js/scrolling-nav.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-</body>
+        <!-- Custom JavaScript for this theme -->
+        <script src="js/scrolling-nav.js"></script>
 
+    </body>
 </html>

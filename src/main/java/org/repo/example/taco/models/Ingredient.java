@@ -1,18 +1,19 @@
 package org.repo.example.taco.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import javax.persistence.Id;
+
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-
+@Builder
 public class Ingredient {
-
-    private String id;
+    private Long id;
     private String name;
     private Type type;
 
 
 }
+
+

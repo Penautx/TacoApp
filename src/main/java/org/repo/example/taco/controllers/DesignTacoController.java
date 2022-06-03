@@ -2,14 +2,17 @@ package org.repo.example.taco.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.repo.example.taco.models.Ingredient;
+import org.repo.example.taco.models.Order;
 import org.repo.example.taco.models.Taco;
 import org.repo.example.taco.models.Type;
+import org.repo.example.taco.services.JpaIngredientService;
+import org.repo.example.taco.services.JpaTacoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,19 +22,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/design")
 public class DesignTacoController {
 
+    private JpaIngredientService ingredientService;
+    private JpaTacoService tacoService;
+    public DesignTacoController(JpaIngredientService ingredientService, JpaTacoService tacoService){
+        this.ingredientService = ingredientService;
+        this.tacoService = tacoService;
+    }
+
     @GetMapping
     public String showDesignForm(Model model) {
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLTO", "pszenna", Type.WRAP),
-                new Ingredient("COTO", "kukurydziana", Type.WRAP),
-                new Ingredient("GRBF", "mielona wołowina", Type.PROTEIN),
-                new Ingredient("CARN", "kawałki mięsa", Type.PROTEIN),
-                new Ingredient("TMTO", "pomidory pokrojone w kostkę", Type.VEGGIES),
-                new Ingredient("LETC", "sałata", Type.VEGGIES),
-                new Ingredient("CHED", "cheddar", Type.CHEESE),
-                new Ingredient("JACK", "Monterey Jack", Type.CHEESE),
-                new Ingredient("SLSA", "pikantny sos pomidorowy", Type.SAUCE)
-        );
+        List<Ingredient> ingredients = ingredientService.findAll();
 
         EnumSet<Type> types = EnumSet.allOf(Type.class);
         log.info("List of types: " + types);
@@ -47,12 +47,13 @@ public class DesignTacoController {
         return "design";
     }
 
-//    @PostMapping
-//    public String processDesign(@Valid Taco design, Errors errors){
-//        if (errors.hasErrors()) {
-//           return "design";
-//        }
-//        log.info("Przetwarzanie projektu taco: " + design);
-//        return "redirect:/orders/current";
-//    }
+    @PostMapping
+    public String processDesign(@ModelAttribute Taco design, Model model){
+        Order order = new Order();
+        design.initializeDate();
+        Taco saved = tacoService.save(design);
+        order.addDesign(saved);
+
+        return "redirect:/orders/current";
+    }
 }

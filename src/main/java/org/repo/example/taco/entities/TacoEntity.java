@@ -20,7 +20,7 @@ public class TacoEntity {
 
     private String name;
 
-    @ManyToMany(targetEntity=IngredientEntity.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity=IngredientEntity.class, cascade = CascadeType.MERGE)
     @JoinColumn(name="id")
     private List<IngredientEntity> ingredients;
 

@@ -10,11 +10,13 @@ import java.util.stream.Collectors;
 public class TacoMapper {
 
     public static TacoEntity mapToEntity (Taco taco){
-
         TacoEntity mappedEntity = new TacoEntity();
         mappedEntity.setCreatedAt(taco.getCreatedAt());
         mappedEntity.setName(taco.getName());
-        mappedEntity.setIngredients(taco.getIngredients().stream().map(IngredientMapper::mapToEntity).collect(Collectors.toList()));
+        mappedEntity.setIngredients(taco.getIngredients()
+                .stream()
+                .map(IngredientMapper::mapToEntity)
+                .collect(Collectors.toList()));
         return mappedEntity;
     }
 
@@ -22,7 +24,10 @@ public class TacoMapper {
     public static Taco mapFromEntity (TacoEntity tacoEntity) {
         Taco taco = new Taco();
         taco.setName(tacoEntity.getName());
-        taco.setIngredients((List< Ingredient >) (List) tacoEntity.getIngredients());
+        taco.setIngredients(tacoEntity.getIngredients()
+                .stream()
+                .map(IngredientMapper::mapFromEntity)
+                .collect(Collectors.toList()));
         taco.setCreatedAt(tacoEntity.getCreatedAt());
         return taco;
 

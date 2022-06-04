@@ -5,7 +5,9 @@ import org.repo.example.taco.models.Ingredient;
 public class IngredientMapper {
      public static IngredientEntity mapToEntity (Ingredient ingredient){
 
+
          IngredientEntity ingredientEntity = new IngredientEntity();
+         ingredientEntity.setId(ingredient.getId());
          ingredientEntity.setName(ingredient.getName());
          ingredientEntity.setType(ingredient.getType());
 

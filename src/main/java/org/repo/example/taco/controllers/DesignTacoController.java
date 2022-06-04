@@ -52,7 +52,7 @@ public class DesignTacoController {
         Order order = new Order();
         design.initializeDate();
         Taco saved = tacoService.save(design);
-        order.addDesign(saved);
+        log.info("Taco has been created " + saved);
 
         return "redirect:/orders/current";
     }

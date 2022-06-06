@@ -56,13 +56,20 @@
 </header>
 
 <section id="design">
-  <form action ="#" method="POST" th:object="${design}" th:action="@{/design}">
-  <form class="container">
+  <form method="POST" th:object="${taco}" th:action="@{/design}">
+  <div class="container">
+
     <div class="row">
       <div class="container">
       <div class="col-lg-8 mx-auto">
 
+
+
           <div class="form-check">
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('ingredients')}"
+                  th:errors="*{ingredients}">Zaznacz przynajmniej jeden składnik</span>
+            <br>
             <div class="ingredient-group">
               <h4>Wybierz rodzaj mąki:</h4>
               <br>
@@ -82,6 +89,7 @@
                   </label>
                  </div>
                 </th:block>
+
               <br>
              </div>
             </div>
@@ -165,23 +173,28 @@
           </div>
         </div>
           <div class="container">
-            <h4>Nadaj nazwę przygotowanemu taco:</h4>
+            <label for="name"><h4>Nadaj nazwę przygotowanemu taco:</h4></label>
             <br>
-            <input type="text" th:field="*{name}" />
+            <input id="name" type="text" th:field="*{name}" />
+            <span style="color:#FF0001" class="validationError"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">Niepoprawne imię</span>
             <br><br>
 
 
             <button>Wyślij swoje zamówienie</button>
             <br/>
+
           </div>
         </div>
        </div>
       </div>
-  </form>
+  </div>
 
 
 <section id="services" class="bg-light">
   <div class="container">
+
     <div class="row">
       <div class="col-lg-8 mx-auto">
         <h2>Services we offer</h2>

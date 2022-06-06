@@ -6,9 +6,7 @@ import org.repo.example.taco.entities.TacoEntity;
 import org.repo.example.taco.models.Ingredient;
 import org.repo.example.taco.models.Taco;
 import org.repo.example.taco.models.Type;
-import org.repo.example.taco.services.JpaTacoService;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.Arrays;

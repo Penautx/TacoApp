@@ -2,7 +2,6 @@ package org.repo.example.taco.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.repo.example.taco.models.Ingredient;
-import org.repo.example.taco.models.Order;
 import org.repo.example.taco.models.Taco;
 import org.repo.example.taco.models.Type;
 import org.repo.example.taco.services.JpaIngredientService;
@@ -19,18 +18,25 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
-@RequestMapping("/design")
+@RequestMapping
 public class DesignTacoController {
 
     private JpaIngredientService ingredientService;
     private JpaTacoService tacoService;
-    public DesignTacoController(JpaIngredientService ingredientService, JpaTacoService tacoService){
+
+    public DesignTacoController(JpaIngredientService ingredientService, JpaTacoService tacoService) {
         this.ingredientService = ingredientService;
         this.tacoService = tacoService;
     }
 
-    @GetMapping
-    public String showDesignForm(Model model) {
+
+    @GetMapping("/design")
+    public Taco designForm(Taco design){
+        return design;
+    }
+
+    @ModelAttribute(name = "design")
+    public Taco design(Model model) {
         List<Ingredient> ingredients = ingredientService.findAll();
 
         EnumSet<Type> types = EnumSet.allOf(Type.class);
@@ -42,18 +48,23 @@ public class DesignTacoController {
                     ingredients.stream()
                             .filter(ingredient -> ingredient.getType() == type)
                             .collect(Collectors.toList()));
+
         }
-        model.addAttribute("design", new Taco());
-        return "design";
+        return new Taco();
     }
 
-    @PostMapping
-    public String processDesign(@ModelAttribute Taco design, Model model){
-        Order order = new Order();
+    @PostMapping("/design")
+    public String processDesign(@Valid Taco design, Errors errors) {
+        log.info(errors.getAllErrors().toString());
+
+        if (errors.hasErrors()){
+
+            return "design";
+        }
         design.initializeDate();
         Taco saved = tacoService.save(design);
         log.info("Taco has been created " + saved);
 
-        return "redirect:/orders/current";
+        return "redirect:/currentOrder";
     }
 }

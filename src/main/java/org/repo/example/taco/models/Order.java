@@ -49,14 +49,10 @@ public class Order implements Serializable {
 
     private List <Taco> tacos;
 
-    public void addDesign(Taco design){
+    public void addDesignToList(Taco design){
 
         this.tacos.add(design);
     }
 
-    @PrePersist
-    void placedAt() {
-        this.placedAt = new Date();
-    }
 
 }

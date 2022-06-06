@@ -55,16 +55,16 @@
 </header>
 
 
-    <form method ="POST" th:action="@{/currentOrder}" th:object="${order}">
+    <form method ="POST" th:action="@{/orders}" th:object="${order}">
         <div class = "container">
             <a href="/design" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Stwórz taco od nowa</a>
 
     <div th:if="${#fields.hasErrors()}">
-    <span class="validationEror">
+        <span class="validationError">
       Usuń wymienione problemy i spróbuj ponownie
-    </span>
-    </div><section id="order">
-    <h3>Adres dostarczenia taco</h3>
+        </span>
+    </div>
+            <section id="order"><h3>Adres dostarczenia taco</h3>
             <br>
     <label for="name">Imię i nazwisko: </label>
     <input class="form-control" id ="name" type="text" th:field="*{name}"/>
